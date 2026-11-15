@@ -3,21 +3,181 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Slats Studios</title>
+<title>Slats Studios: original mobile games</title>
+<meta name="description" content="Slats Studios makes small, original mobile games. Play Colourdoku: Sudoku by Colour and Tilt Temple: Marble Maze.">
+<meta property="og:title" content="Slats Studios">
+<meta property="og:description" content="Small, original mobile games: Colourdoku and Tilt Temple.">
+<meta property="og:image" content="https://slatsstudios.github.io/img/logo.png">
+<meta property="og:url" content="https://slatsstudios.github.io/">
+<meta name="theme-color" content="#0b1640">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/favicon.png">
 <style>
-  body { font-family: -apple-system, system-ui, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 16px; line-height: 1.6; color: #1d1d1f; background: #fff; }
-  h1 { margin-bottom: 4px; }
-  a { color: #0066cc; }
+  :root {
+    --bg: #0b1640; --card: #17266b; --line: rgba(255,255,255,.12);
+    --text: #f4f6ff; --muted: #b9c3ee; --yellow: #ffd21f; --orange: #ff8a1f;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--text); line-height: 1.55;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg) radial-gradient(1100px 620px at 50% -120px, #2a55d8 0%, rgba(42,85,216,0) 70%) no-repeat;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+  .brand { font-weight: 800; letter-spacing: .02em; text-decoration: none; font-size: 1.05rem; white-space: nowrap; }
+  nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  nav a {
+    text-decoration: none; font-weight: 600; font-size: .95rem; padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(255,255,255,.06);
+  }
+  nav a:hover, nav a:focus-visible { background: rgba(255,255,255,.16); }
+  nav a.policy { border-color: var(--yellow); color: var(--yellow); }
+
+  .hero { text-align: center; padding: 8px 0 40px; }
+  .hero img { width: min(420px, 82vw); margin: 0 auto -18px; filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); }
+  .hero h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); margin: 0 0 8px; line-height: 1.15; }
+  .hero p { color: var(--muted); font-size: 1.1rem; margin: 0 auto; max-width: 34em; }
+
+  h2.section { font-size: 1.5rem; margin: 0 0 18px; }
+  .games { display: grid; gap: 28px; }
+  .game { background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: 0 16px 40px rgba(0,0,0,.35); }
+  .game .feature { width: 100%; aspect-ratio: 1024 / 500; object-fit: cover; }
+  .game .body { padding: 20px; display: grid; gap: 20px; }
+  .copy { display: grid; gap: 14px; }
+  .title { display: flex; align-items: center; gap: 14px; }
+  .title img { width: 72px; height: 72px; border-radius: 16px; flex: none; box-shadow: 0 6px 14px rgba(0,0,0,.4); }
+  .title h3 { margin: 0; font-size: 1.35rem; line-height: 1.2; }
+  .title span { color: var(--muted); font-size: .95rem; }
+  .game p { margin: 0; color: #dfe5ff; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .shots img { width: 100%; border-radius: 12px; border: 1px solid var(--line); }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .store {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none; background: #000; color: #fff;
+    padding: 10px 20px 10px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.35);
+    transition: transform .15s;
+  }
+  .store:hover, .store:focus-visible { transform: translateY(-2px); border-color: #fff; }
+  .store svg { width: 26px; height: 26px; fill: #fff; flex: none; }
+  .store small { display: block; font-size: .7rem; line-height: 1.1; opacity: .85; }
+  .store b { display: block; font-size: 1.15rem; line-height: 1.15; }
+  .soon { display: inline-block; padding: 10px 16px; border-radius: 12px; font-weight: 700; color: #2b1a00; background: linear-gradient(180deg, var(--yellow), var(--orange)); }
+  .tags { color: var(--muted); font-size: .9rem; }
+
+  .info { margin: 44px 0 0; display: grid; gap: 16px; }
+  .panel { background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+  .panel h2 { margin: 0 0 6px; font-size: 1.15rem; }
+  .panel p { margin: 0 0 12px; color: var(--muted); }
+  .btn { display: inline-block; text-decoration: none; font-weight: 700; padding: 10px 16px; border-radius: 10px; background: var(--yellow); color: #1a1400; }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .btn:hover, .btn:focus-visible { filter: brightness(1.1); }
+
+  footer { margin-top: 44px; padding: 22px 0 34px; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+  footer a { color: var(--text); font-weight: 600; }
+
+  @media (min-width: 760px) {
+    .game .body { grid-template-columns: 1fr 1fr; padding: 28px; gap: 28px; align-items: center; }
+    .copy { gap: 16px; }
+    .info { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .store { transition: none; } }
 </style>
 </head>
 <body>
-<h1>Slats Studios</h1>
-<p>Small, original mobile games.</p>
-<h2>Games</h2>
-<ul>
-  <li>Colourdoku: Sudoku by Colour</li>
-  <li>Tilt Temple</li>
-</ul>
-<p><a href="https://sites.google.com/view/slats-studios-privacy-policy/">Privacy policy and support</a></p>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="/">Slats Studios</a>
+    <nav aria-label="Main">
+      <a href="#games">Games</a>
+      <a href="#support">Support</a>
+      <a class="policy" href="https://sites.google.com/view/slats-studios-privacy-policy/">Privacy Policy</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <img src="img/logo.png" width="640" height="640" alt="Slats Studios logo">
+    <h1>Small, original mobile games</h1>
+    <p>An independent one-person studio in the UK, making games that are quick to pick up and satisfying to finish.</p>
+  </section>
+
+  <main id="games">
+    <h2 class="section">Our games</h2>
+    <div class="games">
+
+      <article class="game">
+        <a href="https://apps.apple.com/app/id6833151830"><img class="feature" src="img/colourdoku-feature.jpg" width="1024" height="500" alt="Colourdoku: Sudoku by Colour"></a>
+        <div class="body">
+          <div class="copy">
+            <div class="title">
+              <img src="img/colourdoku-icon.png" width="256" height="256" alt="Colourdoku app icon">
+              <div><h3>Colourdoku: Sudoku by Colour</h3><span>Relaxing colour logic puzzles</span></div>
+            </div>
+            <p>Sudoku with no numbers, just nine bright crayons. 84 puzzles across five books, with a dark mode and symbols if you'd rather not rely on colour.</p>
+            <div class="cta">
+              <a class="store" href="https://apps.apple.com/app/id6833151830" aria-label="Download Colourdoku on the App Store">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.54c-.03-2.7 2.2-4 2.3-4.06-1.25-1.83-3.2-2.08-3.9-2.11-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.26-.48 8.09 1.35 10.74.9 1.3 1.96 2.75 3.36 2.7 1.35-.05 1.86-.87 3.49-.87 1.63 0 2.09.87 3.52.84 1.45-.03 2.37-1.32 3.26-2.62 1.03-1.5 1.45-2.96 1.48-3.03-.03-.02-2.83-1.09-2.85-4.31zM14.37 4.6c.74-.9 1.24-2.15 1.1-3.4-1.07.04-2.36.71-3.13 1.61-.69.8-1.29 2.07-1.13 3.3 1.19.09 2.41-.61 3.16-1.51z"/></svg>
+                <span><small>Download on the</small><b>App Store</b></span>
+              </a>
+              <span class="tags">Free · iPhone and iPad</span>
+            </div>
+          </div>
+          <div class="shots">
+            <img src="img/colourdoku-1.jpg" width="414" height="900" loading="lazy" alt="Colourdoku puzzle grid filled with coloured crayons">
+            <img src="img/colourdoku-2.jpg" width="414" height="900" loading="lazy" alt="Colourdoku's five puzzle books">
+            <img src="img/colourdoku-3.jpg" width="414" height="900" loading="lazy" alt="Colourdoku in dark mode with symbols">
+          </div>
+        </div>
+      </article>
+
+      <article class="game">
+        <img class="feature" src="img/tilt-temple-feature.jpg" width="1024" height="500" alt="Tilt Temple: Marble Maze">
+        <div class="body">
+          <div class="copy">
+            <div class="title">
+              <img src="img/tilt-temple-icon.png" width="256" height="256" alt="Tilt Temple app icon">
+              <div><h3>Tilt Temple: Marble Maze</h3><span>A 3D marble maze you steer by tilting</span></div>
+            </div>
+            <p>Tilt your phone to roll a marble through floating 3D ruins to the golden gate. Cross crumbling bridges, slide over ice and slip past laser gates on the way.</p>
+            <div class="cta">
+              <span class="soon">Coming soon to the App Store</span>
+              <span class="tags">Free · iPhone and iPad</span>
+            </div>
+          </div>
+          <div class="shots">
+            <img src="img/tilt-temple-1.jpg" width="414" height="900" loading="lazy" alt="Tilt Temple: a marble rolling along a floating stone path">
+            <img src="img/tilt-temple-2.jpg" width="414" height="900" loading="lazy" alt="Tilt Temple: crumbling bridges">
+            <img src="img/tilt-temple-3.jpg" width="414" height="900" loading="lazy" alt="Tilt Temple: laser gates">
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="info">
+      <section class="panel" id="support">
+        <h2>Support</h2>
+        <p>Found a bug, or have a question about one of our games? Email us and we'll get back to you.</p>
+        <a class="btn ghost" href="mailto:slatsstudios@gmail.com">slatsstudios@gmail.com</a>
+      </section>
+      <section class="panel" id="privacy">
+        <h2>Privacy Policy</h2>
+        <p>One policy covers every Slats Studios game: what our games collect, how ads work, and your choices.</p>
+        <a class="btn" href="https://sites.google.com/view/slats-studios-privacy-policy/">Read the Privacy Policy</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 Slats Studios</span>
+    <span><a href="https://sites.google.com/view/slats-studios-privacy-policy/">Privacy Policy</a> · <a href="mailto:slatsstudios@gmail.com">Contact</a></span>
+  </footer>
+
+</div>
 </body>
 </html>
